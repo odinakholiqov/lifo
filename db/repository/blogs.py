@@ -18,3 +18,8 @@ def retreive_blog(id: int, db: Session):
     blog = db.query(Blog).filter(Blog.id == id).first()
 
     return blog 
+
+def list_blogs(db: Session):
+    blogs = db.query(Blog).filter(Blog.is_active == True).all()
+    
+    return blogs
