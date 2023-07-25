@@ -2,7 +2,7 @@ from pydantic import BaseModel, root_validator
 from typing import Optional
 from datetime import date
 
-class BlogCreate(BaseModel):
+class CreateBlog(BaseModel):
     title: str
     slug: str
     context: Optional[str] = None
@@ -23,3 +23,6 @@ class ShowBlog(BaseModel):
 
     class Config():
         from_attributes = True
+
+class UpdateBlog(CreateBlog):
+    pass
