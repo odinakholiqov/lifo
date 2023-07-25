@@ -10,3 +10,7 @@ alembic
 pydantic[email]
 
 passlib[bcrypt]
+
+pytest
+requests
+httpx
