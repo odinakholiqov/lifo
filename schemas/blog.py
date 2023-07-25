@@ -1,4 +1,4 @@
-from pydantic import BaseModel, root_validator
+from pydantic import BaseModel, model_validator
 from typing import Optional
 from datetime import date
 
@@ -7,7 +7,7 @@ class CreateBlog(BaseModel):
     slug: str
     context: Optional[str] = None
 
-    @root_validator(pre=True)
+    @model_validator(mode="before")
     def generate_slug(cls, values):
         if 'title' in values:
             values['slug'] = values.get("title").replace(" ", "-").lower()
@@ -19,7 +19,7 @@ class ShowBlog(BaseModel):
     slug: str
     context: Optional[str] = None
 
-    class Config():
+    class ConfigDict():
         from_attributes = True
 
 class UpdateBlog(CreateBlog):
