@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from schemas.blog import CreateBlog, ShowBlog, UpdateBlog
+from schemas.blog import CreateBlog, ShowBlog, UpdateBlog, DeleteBlog
 from db.models.blog import Blog
 
 
@@ -26,10 +26,25 @@ def update_blog(id: int, blog: UpdateBlog, author_id: int, db: Session):
     blog_in_db = db.query(Blog).filter(Blog.id == id).first()
     
     if not blog_in_db:
-        return
+        return {"error":f"Could not find blog with id {id}"}
     blog_in_db.title = blog.title
     blog_in_db.context = blog.context
     db.add(blog_in_db)
     db.commit()
     
     return blog_in_db
+
+def delete_blog(id: int, db: Session):
+    blog_in_db = db.query(Blog).filter(Blog.id == id)
+
+    print("without first()", db.query(Blog).filter(Blog.id == id))
+    print("with first()", db.query(Blog).filter(Blog.id == id).first())
+
+
+    if not blog_in_db:
+        return {"error":f"Could not find blog with id {id}"}
+    
+    blog_in_db.delete()
+    db.commit()
+
+    return {"msg": f"Blog with id {id} was deleted"}

@@ -2,9 +2,9 @@ from fastapi import APIRouter, status, HTTPException
 from sqlalchemy.orm import Session
 from fastapi import Depends
 
-from schemas.blog import CreateBlog, ShowBlog, UpdateBlog
+from schemas.blog import CreateBlog, ShowBlog, UpdateBlog, DeleteBlog
 from db.session import get_db
-from db.repository.blogs import create_new_blog, retreive_blog, list_blogs, update_blog
+from db.repository.blogs import create_new_blog, retreive_blog, list_blogs, update_blog, delete_blog
 
 from typing import List
 
@@ -35,3 +35,12 @@ def update_a_blog(id: int, blog: UpdateBlog, db: Session = Depends(get_db)):
     if not blog:
         raise HTTPException(detail=f"Blog with id {id} does not exist")
     return blog
+
+@router.delete("/blogs/{id}")
+def delete_a_blog(id:int, db: Session = Depends(get_db)):
+    blog = delete_blog(id=id, db=db)
+    
+    if not blog:
+        raise HTTPException(detail=f"Blog with id {id} does not exist")
+    
+    return blog 

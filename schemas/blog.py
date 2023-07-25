@@ -14,9 +14,7 @@ class CreateBlog(BaseModel):
         return values
 
 class ShowBlog(BaseModel):
-    # title: str
-    # context: Optional[str]
-
+    id: int
     title: str
     slug: str
     context: Optional[str] = None
@@ -25,4 +23,7 @@ class ShowBlog(BaseModel):
         from_attributes = True
 
 class UpdateBlog(CreateBlog):
+    pass
+
+class DeleteBlog(CreateBlog):
     pass
