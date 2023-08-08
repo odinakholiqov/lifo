@@ -1,9 +1,11 @@
-from datetime import datetime
-
-from sqlalchemy import Column, Integer, Text, String, Boolean, DateTime, ForeignKey
+from sqlalchemy import Boolean
+from sqlalchemy import Column
+from sqlalchemy import Integer
+from sqlalchemy import String
 from sqlalchemy.orm import relationship
 
 from db.base_class import Base
+
 
 class User(Base):
     id = Column(Integer, primary_key=True, index=True)

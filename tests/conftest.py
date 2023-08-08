@@ -1,3 +1,5 @@
+import os
+import sys
 from typing import Any
 from typing import Generator
 
@@ -7,10 +9,8 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
-#this is to include backend dir in sys.path so that we can import from db,main.py
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# this is to include backend dir in sys.path so that we can import from db,main.py
 
 from db.base import Base
 from db.session import get_db
@@ -71,4 +71,3 @@ def client(
     app.dependency_overrides[get_db] = _get_test_db
     with TestClient(app) as client:
         yield client
-        
